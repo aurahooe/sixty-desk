@@ -1,2 +1,5 @@
-# sixty-desk
-Sixty — a living hourly desk. Public notes, private drafts, one feature each hour.
+# Sixty
+
+A living public desk. One featured piece each hour. Notes stay private unless you mark them public.
+
+Open `index.html` on any static host, or the Vercel deployment once linked.

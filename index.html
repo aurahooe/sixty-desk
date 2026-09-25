@@ -1,0 +1,114 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+  <meta charset="UTF-8" />
+  <meta name="viewport" content="width=device-width, initial-scale=1" />
+  <title>Sixty — the desk of the hour</title>
+  <meta name="description" content="A living public desk. One feature each hour. Notes you keep, notes you share." />
+  <link rel="preconnect" href="https://fonts.googleapis.com" />
+  <link rel="preconnect" href="https://fonts.gstatic.com" crossorigin />
+  <link href="https://fonts.googleapis.com/css2?family=Instrument+Serif:ital@0;1&family=Newsreader:ital,opsz,wght@0,6..72,400;0,6..72,500;1,6..72,400&family=IBM+Plex+Sans:wght@400;500;600&display=swap" rel="stylesheet" />
+  <link rel="stylesheet" href="./styles.css" />
+</head>
+<body>
+  <div class="grain" aria-hidden="true"></div>
+  <div class="wash" aria-hidden="true"></div>
+
+  <header class="mast">
+    <a class="mark" href="#floor">
+      <span class="mark-rule"></span>
+      <span class="mark-name">Sixty</span>
+    </a>
+    <nav class="mast-nav">
+      <button type="button" data-go="floor">Floor</button>
+      <button type="button" data-go="desk">Desk</button>
+      <button type="button" data-go="archive">Hours</button>
+    </nav>
+    <div class="mast-right">
+      <span class="clock" id="clock">—</span>
+      <button type="button" class="ghost" id="authBtn">Sign in</button>
+    </div>
+  </header>
+
+  <main>
+    <section class="hero" id="floor">
+      <p class="kicker" id="hourKicker">This hour</p>
+      <h1 id="hourTitle">The desk is warming.</h1>
+      <p class="lede" id="hourBody">A new feature lands here every hour. Public notes from the room sit below it.</p>
+      <div class="hero-meta">
+        <span id="hourStamp">waiting on the hour</span>
+        <span class="dot"></span>
+        <span id="nextHour">next change in —</span>
+      </div>
+    </section>
+
+    <section class="board">
+      <div class="board-head">
+        <h2>On the floor</h2>
+        <p>Anything marked public is visible to anyone who walks in.</p>
+      </div>
+      <div class="cards" id="publicNotes"></div>
+    </section>
+
+    <section class="desk panel" id="desk" hidden>
+      <div class="desk-col">
+        <h2 id="deskTitle">Your desk</h2>
+        <p class="quiet" id="deskHint">Write something. Keep it, or put it on the floor.</p>
+        <form id="noteForm" class="compose">
+          <label>
+            Title
+            <input name="title" maxlength="120" required placeholder="A short heading" />
+          </label>
+          <label>
+            Note
+            <textarea name="body" maxlength="8000" required rows="8" placeholder="What is true in this hour."></textarea>
+          </label>
+          <label class="check">
+            <input type="checkbox" name="is_public" />
+            <span>Mark public — show on the floor</span>
+          </label>
+          <button type="submit" class="solid">Save note</button>
+        </form>
+      </div>
+      <div class="desk-col">
+        <h3>Your notes</h3>
+        <div id="myNotes" class="stack"></div>
+      </div>
+    </section>
+
+    <section class="archive panel" id="archive">
+      <h2>Previous hours</h2>
+      <ol id="hourList" class="hour-list"></ol>
+    </section>
+  </main>
+
+  <dialog id="authModal" class="sheet">
+    <form method="dialog" class="sheet-close"><button aria-label="Close">×</button></form>
+    <h2 id="authTitle">Sign in to the desk</h2>
+    <p class="quiet">Email and a password. Your drafts stay yours until you mark them public.</p>
+    <form id="authForm">
+      <label>Email<input type="email" name="email" required autocomplete="email" /></label>
+      <label>Password<input type="password" name="password" required minlength="8" autocomplete="current-password" /></label>
+      <div class="row">
+        <button type="submit" class="solid" data-mode="signin">Sign in</button>
+        <button type="button" class="ghost" id="signupBtn">Create account</button>
+      </div>
+      <p class="err" id="authErr" hidden></p>
+    </form>
+    <form id="profileForm" hidden>
+      <label>Display name<input name="display_name" maxlength="60" required /></label>
+      <label>Handle<input name="handle" maxlength="24" required pattern="[a-z0-9_]{2,24}" placeholder="lowercase_letters" /></label>
+      <label>Bio<textarea name="bio" maxlength="280" rows="3"></textarea></label>
+      <button type="submit" class="solid">Keep the desk</button>
+      <p class="err" id="profileErr" hidden></p>
+    </form>
+  </dialog>
+
+  <footer class="colophon">
+    <p>Sixty is a small public desk. Features change with the clock. Public notes belong to their authors.</p>
+  </footer>
+
+  <script src="https://cdn.jsdelivr.net/npm/@supabase/supabase-js@2"></script>
+  <script src="./app.js"></script>
+</body>
+</html>
